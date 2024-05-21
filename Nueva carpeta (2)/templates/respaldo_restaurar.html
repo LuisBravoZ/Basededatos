@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respaldo y Restauración de Base de Datos</title>
+    <link rel="stylesheet" href="">
+</head>
+<body>
+    <div class="container">
+        <h1>Respaldo y Restauración de Base de Datos</h1>
+        <button type="button" onclick="window.location.href='/'">Atrás</button>
+        <div class="section">
+            <h2>Respaldo de Base de Datos</h2>
+            <form action="/respaldo" method="post">
+                <input type="submit" value="Realizar Respaldo">
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>Restauración de Base de Datos</h2>
+            <form action="/restauracion" method="post">
+                <input type="submit" value="Realizar Restauración">
+            </form>
+        </div>
+    </div>
+    <script>
+        // Esta función se ejecutará cuando la página se haya cargado completamente
+        window.onload = function() {
+            // Verificar si la URL contiene un parámetro de mensaje
+            const urlParams = new URLSearchParams(window.location.search);
+            const message = urlParams.get('message');
+
+            // Si hay un mensaje, mostrar una alerta con ese mensaje
+            if (message) {
+                alert(message);
+            }
+        };
+    </script>
+</body>
+</html>

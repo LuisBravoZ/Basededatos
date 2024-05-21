@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ver Roles de Usuario</title>
+</head>
+<body>
+    <h1>Ver Roles de Usuario</h1>
+    <button type="button" onclick="window.location.href='/administrar_usuarios'">Atrás</button>
+       
+    <form action="/ver_roles_usuario" method="post">
+        <label for="nombre_usuario">Nombre de usuario:</label>
+        <select id="nombre_usuario" name="nombre_usuario">
+            {% for usuario in usuarios %}
+                <option value="{{ usuario }}" {% if usuario == usuario_seleccionado %}selected{% endif %}>{{ usuario }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Ver Roles">
+    </form>
+    {% if usuario_seleccionado %}
+        <h2>Roles de {{ usuario_seleccionado }}</h2>
+        <ul>
+            {% for rol in roles_usuario %}
+                <li>{{ rol }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

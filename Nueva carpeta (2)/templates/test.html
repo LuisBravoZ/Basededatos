@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Entidades</title>
+</head>
+<body>
+    <h1>Listado de Entidades de la Base de Datos</h1>
+    <button onclick="listEntities()">Listar Entidades</button>
+    <button onclick="">Agregar Entidad</button>
+    <div id="entitiesList"></div>
+
+    <script>
+        function listEntities() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("entitiesList").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("GET", "/get_entities", true);
+            xhttp.send();
+        }
+    </script>
+</body>
+</html>

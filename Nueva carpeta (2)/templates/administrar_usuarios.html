@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrar Usuarios y Roles</title>
+    <link rel="stylesheet" href="/static/css/administrar_usuarios.css">
+</head>
+<body>
+
+    <h1>Administrar Usuarios y Roles</h1>
+    <button type="button" onclick="window.location.href='/'">Atrás</button>
+    
+    <h2>Agregar Usuario</h2>
+    <form action="/agregar_usuario" method="post">
+        <label for="nombre">Nombre de usuario:</label>
+        <input type="text" id="nombre" name="nombre" required><br><br>
+        <label for="contraseña">Contraseña:</label>
+        <input type="password" id="contraseña" name="contraseña" required><br><br>
+        <input type="submit" value="Agregar Usuario">
+    </form>
+
+    <h2>Eliminar Usuario</h2>
+    <form action="/eliminar_usuario" method="post">
+        <label for="nombre_eliminar">Nombre de usuario a eliminar:</label>
+        <select id="nombre_eliminar" name="nombre_eliminar">
+            {% for usuario in usuarios %}
+                <option value="{{ usuario }}">{{ usuario }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Eliminar Usuario">
+    </form>
+
+    <h2>Modificar Usuario</h2>
+    <form action="/modificar_usuario" method="post">
+        <label for="nombre_modificar">Nombre de usuario a modificar:</label>
+        <select id="nombre_modificar" name="nombre_modificar">
+            {% for usuario in usuarios %}
+                <option value="{{ usuario }}">{{ usuario }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="nueva_contraseña">Nueva contraseña:</label>
+        <input type="password" id="nueva_contraseña" name="nueva_contraseña" required><br><br>
+        <input type="submit" value="Modificar Usuario">
+    </form>
+
+    <h2>Crear Rol</h2>
+    <form action="/crear_rol" method="post">
+        <label for="nombre_rol">Nombre del rol:</label>
+        <input type="text" id="nombre_rol" name="nombre_rol" required><br><br>
+        <input type="submit" value="Crear Rol">
+    </form>
+
+    <h2>Asignar Rol a Usuario</h2>
+    <form action="/asignar_rol" method="post">
+        <label for="nombre_usuario">Nombre de usuario:</label>
+        <select id="nombre_usuario" name="nombre_usuario">
+            {% for usuario in usuarios %}
+                <option value="{{ usuario }}">{{ usuario }}</option>
+            {% endfor %}
+        </select><br><br>
+        <label for="nombre_rol">Nombre del rol:</label>
+        <select id="nombre_rol" name="nombre_rol">
+            {% for rol in roles %}
+                <option value="{{ rol }}">{{ rol }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Asignar Rol">
+    </form>
+    <h2>Ver Roles de un Usuario</h2>
+    <form action="/ver_roles_usuario" method="post">
+        <label for="nombre_usuario">Nombre de usuario:</label>
+        <select id="nombre_usuario" name="nombre_usuario">
+            {% for usuario in usuarios %}
+                <option value="{{ usuario }}">{{ usuario }}</option>
+            {% endfor %}
+        </select><br><br>
+        <input type="submit" value="Ver Roles">
+    </form>
+    {% if roles_usuario %}
+        <h2>Roles de {{ usuario_seleccionado }}</h2>
+        <ul>
+            {% for rol in roles_usuario %}
+                <li>{{ rol }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <h2>Consultar Usuarios</h2>
+    <ul>
+        {% for usuario in usuarios %}
+            <li>{{ usuario }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Consultar Roles</h2>
+    <ul>
+        {% for rol in roles %}
+            <li>{{ rol }}</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>

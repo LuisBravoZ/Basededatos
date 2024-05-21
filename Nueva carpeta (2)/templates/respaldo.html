@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Respaldo de Base de Datos</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Respaldo de Base de Datos</h1>
+        <button type="button" onclick="window.location.href='/'">Atrás</button>
+        <form id="respaldoForm" action="/respaldo" method="post" enctype="multipart/form-data">
+            <input type="file" id="archivoRespaldo" name="archivoRespaldo" style="display: none;">
+            <input type="button" value="Seleccionar ubicación y nombre de archivo" onclick="document.getElementById('archivoRespaldo').click();">
+            <input type="submit" value="Realizar Respaldo" style="display: none;">
+        </form>
+    </div>
+
+    <script>
+        // Función para activar el envío del formulario al seleccionar un archivo
+        document.getElementById('archivoRespaldo').addEventListener('change', function() {
+            document.getElementById('respaldoForm').submit();
+        });
+    </script>
+</body>
+</html>
