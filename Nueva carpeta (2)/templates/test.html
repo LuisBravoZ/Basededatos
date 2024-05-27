@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listado de Entidades</title>
-</head>
-<body>
-    <h1>Listado de Entidades de la Base de Datos</h1>
-    <button onclick="listEntities()">Listar Entidades</button>
-    <button onclick="">Agregar Entidad</button>
-    <div id="entitiesList"></div>
+    <title>Listado de Entidades y Agregar Entidades</title>
+    <style>
+         input[type="submit"],
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
 
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
     <script>
         function listEntities() {
             var xhttp = new XMLHttpRequest();
@@ -21,6 +32,33 @@
             };
             xhttp.open("GET", "/get_entities", true);
             xhttp.send();
+        }
+
+        function addEntity() {
+            var entityName = document.getElementById("entityName").value;
+            if (entityName) {
+                window.location.href = '/agregar_entidad?nombre_entidad=' + entityName;
+            }
+        }
+        
+    </script>
+</head>
+<body>
+    <button type="button" onclick="window.location.href='/'">Atrás</button>
+    <div class="container_entidad">
+    <h1>Listado de Entidades de la Base de Datos</h1>
+    <button onclick="window.location.href='/agregar_entidad'">Agregar Entidad</button> 
+    <button onclick="listEntities()">Listar Entidades</button>
+    <button onclick="redirectToGenerar()">Generar </button>
+
+    <div id="entitiesList"></div>
+</div>
+    <script>
+        function viewAttributes(entityName) {
+            window.location.href = '/ver_atributos/' + entityName;
+        }
+        function redirectToGenerar() {
+            window.location.href = '/generar.html';
         }
     </script>
 </body>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generar PDF</title>
+    <style>
+        input[type="submit"],
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="window.location.href='/test'">Atras</button>
+    <h1>Generar PDF</h1>
+
+    <!-- Formulario para seleccionar entidades y generar PDF -->
+    <form id="pdfForm" method="POST" action="/generate_pdf">
+        <h2>Entidades</h2>
+        <ul id="entitiesList">
+            <!-- Las entidades se cargarán aquí dinámicamente -->
+        </ul>
+        <div id="attributesSection"></div>
+        <button type="button" onclick="generatePDF()">Generar PDF</button>
+    </form>
+
+    <!-- JavaScript para cargar las entidades y atributos -->
+    <script>
+        function loadEntities() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/get_entities_pdf", true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var entities = JSON.parse(xhr.responseText);
+                    var entitiesList = document.getElementById("entitiesList");
+                    entitiesList.innerHTML = "";
+                    entities.forEach(function (entity) {
+                        var listItem = document.createElement("li");
+                        var label = document.createElement("label");
+                        var checkbox = document.createElement("input");
+                        checkbox.type = "checkbox";
+                        checkbox.name = "entities";
+                        checkbox.value = entity.name;
+                        checkbox.addEventListener('change', function () {
+                            if (checkbox.checked) {
+                                loadAttributes(entity.name);
+                            } else {
+                                document.getElementById("attributesSection").innerHTML = "";
+                            }
+                        });
+                        label.appendChild(checkbox);
+                        label.appendChild(document.createTextNode(" " + entity.name));
+                        listItem.appendChild(label);
+                        entitiesList.appendChild(listItem);
+                    });
+                }
+            };
+            xhr.send();
+        }
+
+        function loadAttributes(entityName) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "/ver_atributos_pdf/" + entityName, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var attributes = JSON.parse(xhr.responseText);
+                    var attributesSection = document.getElementById("attributesSection");
+                    attributesSection.innerHTML = "<h2>Atributos de " + entityName + "</h2>";
+                    attributes.forEach(function (attribute) {
+                        var label = document.createElement("label");
+                        var checkbox = document.createElement("input");
+                        checkbox.type = "checkbox";
+                        checkbox.name = "attributes[]";
+                        checkbox.value = attribute.name;
+                        label.appendChild(checkbox);
+                        label.appendChild(document.createTextNode(" " + attribute.name));
+                        attributesSection.appendChild(label);
+                        attributesSection.appendChild(document.createElement("br"));
+                    });
+                }
+            };
+            xhr.send();
+        }
+
+        function generatePDF() {
+            var checkedEntities = document.querySelectorAll('input[name="entities"]:checked');
+            var checkedAttributes = document.querySelectorAll('input[name="attributes[]"]:checked');
+
+            if (checkedEntities.length > 0 && checkedAttributes.length > 0) {
+                var entities = Array.from(checkedEntities).map(checkbox => checkbox.value);
+                var attributes = Array.from(checkedAttributes).map(checkbox => checkbox.value);
+
+                var form = document.createElement("form");
+                form.method = "POST";
+                form.action = "/generate_pdf";
+
+                var entitiesInput = document.createElement("input");
+                entitiesInput.type = "hidden";
+                entitiesInput.name = "entities";
+                entitiesInput.value = JSON.stringify(entities);
+                form.appendChild(entitiesInput);
+
+                var attributesInput = document.createElement("input");
+                attributesInput.type = "hidden";
+                attributesInput.name = "attributes";
+                attributesInput.value = JSON.stringify(attributes);
+                form.appendChild(attributesInput);
+
+                document.body.appendChild(form);
+                form.submit();
+            } else {
+                alert("Por favor, seleccione al menos una entidad y un atributo.");
+            }
+        }
+
+        window.onload = function () {
+            loadEntities();
+        };
+    </script>
+</body>
+
+</html>

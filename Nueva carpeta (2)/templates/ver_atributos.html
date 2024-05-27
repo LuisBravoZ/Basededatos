@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atributos de {{ nombre_entidad }}</title>
+    <style>
+         input[type="submit"],
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        div{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
+</head>
+<body>
+    <button type="button" onclick="window.location.href='/test'">Atrás</button>
+<div>
+    <h1>Atributos de la Entidad: {{ nombre_entidad }}</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Nombre del Atributo</th>
+                <th>Tipo del Atributo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for atributo in atributos %}
+                <tr>
+                    <td>{{ atributo[0] }}</td>
+                    <td>{{ atributo[1] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <br>
+</div>
+</body>
+</html>

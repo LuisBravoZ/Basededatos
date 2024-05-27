@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        input[type="submit"],
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .container_add_entidad {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+    </style>
+    <title>Agregar Entidad</title>
+    <script>
+        function agregarAtributo() {
+            var container = document.getElementById("atributosContainer");
+            var div = document.createElement("div");
+            div.innerHTML = `
+                <label for="atributo_nombre">Nombre del Atributo:</label>
+                <input type="text" name="atributo_nombre"><br>
+                <label for="atributo_tipo">Tipo del Atributo:</label>
+                <select name="atributo_tipo">
+                    <option value="VARCHAR2(100)">VARCHAR2</option>
+                    <option value="NUMBER">NUMBER</option>
+                    <option value="DATE">DATE</option>
+                    <!-- Agrega más tipos según sea necesario -->
+                </select><br><br>
+            `;
+            container.appendChild(div);
+        }
+    </script>
+</head>
+
+<body>
+    <button type="button" onclick="window.location.href='/test'">Atrás</button>
+    <div class="container_add_entidad">
+        <h1>Agregar Nueva Entidad</h1>
+        <form action="/agregar_entidad" method="post">
+            <label for="nombre_entidad">Nombre de la Entidad:</label><br>
+            <input type="text" id="nombre_entidad" name="nombre_entidad"><br><br>
+            <div id="atributosContainer"></div>
+            <button type="button" onclick="agregarAtributo()">Agregar Atributo</button><br><br>
+            <input type="submit" value="Agregar Entidad">
+        </form>
+    </div>
+</body>
+
+</html>

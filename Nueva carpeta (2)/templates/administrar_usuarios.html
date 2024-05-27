@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrar Usuarios y Roles</title>
     <link rel="stylesheet" href="/static/css/administrar_usuarios.css">
 </head>
-<body>
 
-    <h1>Administrar Usuarios y Roles</h1>
+<body>
     <button type="button" onclick="window.location.href='/'">Atrás</button>
-    
+    <h1>Administrar Usuarios y Roles</h1>
+    <div class="container_c">
     <h2>Agregar Usuario</h2>
     <form action="/agregar_usuario" method="post">
         <label for="nombre">Nombre de usuario:</label>
@@ -25,7 +26,7 @@
         <label for="nombre_eliminar">Nombre de usuario a eliminar:</label>
         <select id="nombre_eliminar" name="nombre_eliminar">
             {% for usuario in usuarios %}
-                <option value="{{ usuario }}">{{ usuario }}</option>
+            <option value="{{ usuario }}">{{ usuario }}</option>
             {% endfor %}
         </select><br><br>
         <input type="submit" value="Eliminar Usuario">
@@ -36,7 +37,7 @@
         <label for="nombre_modificar">Nombre de usuario a modificar:</label>
         <select id="nombre_modificar" name="nombre_modificar">
             {% for usuario in usuarios %}
-                <option value="{{ usuario }}">{{ usuario }}</option>
+            <option value="{{ usuario }}">{{ usuario }}</option>
             {% endfor %}
         </select><br><br>
         <label for="nueva_contraseña">Nueva contraseña:</label>
@@ -56,13 +57,13 @@
         <label for="nombre_usuario">Nombre de usuario:</label>
         <select id="nombre_usuario" name="nombre_usuario">
             {% for usuario in usuarios %}
-                <option value="{{ usuario }}">{{ usuario }}</option>
+            <option value="{{ usuario }}">{{ usuario }}</option>
             {% endfor %}
         </select><br><br>
         <label for="nombre_rol">Nombre del rol:</label>
         <select id="nombre_rol" name="nombre_rol">
             {% for rol in roles %}
-                <option value="{{ rol }}">{{ rol }}</option>
+            <option value="{{ rol }}">{{ rol }}</option>
             {% endfor %}
         </select><br><br>
         <input type="submit" value="Asignar Rol">
@@ -72,32 +73,34 @@
         <label for="nombre_usuario">Nombre de usuario:</label>
         <select id="nombre_usuario" name="nombre_usuario">
             {% for usuario in usuarios %}
-                <option value="{{ usuario }}">{{ usuario }}</option>
+            <option value="{{ usuario }}">{{ usuario }}</option>
             {% endfor %}
         </select><br><br>
         <input type="submit" value="Ver Roles">
     </form>
     {% if roles_usuario %}
-        <h2>Roles de {{ usuario_seleccionado }}</h2>
-        <ul>
-            {% for rol in roles_usuario %}
-                <li>{{ rol }}</li>
-            {% endfor %}
-        </ul>
+    <h2>Roles de {{ usuario_seleccionado }}</h2>
+    <ul>
+        {% for rol in roles_usuario %}
+        <li>{{ rol }}</li>
+        {% endfor %}
+    </ul>
     {% endif %}
+</div>
     <h2>Consultar Usuarios</h2>
     <ul>
         {% for usuario in usuarios %}
-            <li>{{ usuario }}</li>
+        <li>{{ usuario }}</li>
         {% endfor %}
     </ul>
 
     <h2>Consultar Roles</h2>
     <ul>
         {% for rol in roles %}
-            <li>{{ rol }}</li>
+        <li>{{ rol }}</li>
         {% endfor %}
     </ul>
 
 </body>
+
 </html>

@@ -1,30 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ver Roles de Usuario</title>
+    <style>
+        input[type="submit"],
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 0 px 20px;
+        }
+
+        input[type="submit"]:hover,
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Ver Roles de Usuario</h1>
     <button type="button" onclick="window.location.href='/administrar_usuarios'">Atrás</button>
-       
-    <form action="/ver_roles_usuario" method="post">
-        <label for="nombre_usuario">Nombre de usuario:</label>
-        <select id="nombre_usuario" name="nombre_usuario">
-            {% for usuario in usuarios %}
-                <option value="{{ usuario }}" {% if usuario == usuario_seleccionado %}selected{% endif %}>{{ usuario }}</option>
-            {% endfor %}
-        </select><br><br>
-        <input type="submit" value="Ver Roles">
-    </form>
-    {% if usuario_seleccionado %}
+    <div class="container">
+        <h1>Ver Roles de Usuario</h1>
+        <form action="/ver_roles_usuario" method="post">
+            <label for="nombre_usuario">Nombre de usuario:</label>
+            <select id="nombre_usuario" name="nombre_usuario">
+                {% for usuario in usuarios %}
+                <option value="{{ usuario }}" {% if usuario==usuario_seleccionado %}selected{% endif %}>{{ usuario }}
+                </option>
+                {% endfor %}
+            </select><br><br>
+            <input type="submit" value="Ver Roles">
+        </form>
+        {% if usuario_seleccionado %}
         <h2>Roles de {{ usuario_seleccionado }}</h2>
         <ul>
             {% for rol in roles_usuario %}
-                <li>{{ rol }}</li>
+            <li>{{ rol }}</li>
             {% endfor %}
         </ul>
-    {% endif %}
+        {% endif %}
+    </div>
 </body>
+
 </html>
