@@ -28,7 +28,7 @@ h2 {
 form {
     margin-bottom: 30px;
     background-color: #fff;
-    padding: 20px;
+    padding:50px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -101,7 +101,7 @@ input[type="text"],
 input[type="password"],
 select {
     width: 100%;
-    max-width: 500px; /* Adjusted max-width for better readability */
+    max-width: 500px; 
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid #ccc;
@@ -109,7 +109,7 @@ select {
 }
 
 button {
-    margin-top: 10px; /* Added margin for better spacing */
+    margin-top: 10px; 
 }
 
 .table-container {
@@ -186,4 +186,10 @@ td {
 
 .success p {
     margin: 0;
+}
+.container_c{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
